@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\{ResetController, BalanceController, EventController};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/reset', 'Resetcontroller@reset');
-Route::get('/balance', 'BalanceController@show');
-Route::post('/event', 'EventController@store');
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+
+Route::post('/reset', [ResetController::class, 'reset']);
+Route::get('/balance', [BalanceController::class, 'show']);
+Route::post('/event', [EventController::class, 'store']);
